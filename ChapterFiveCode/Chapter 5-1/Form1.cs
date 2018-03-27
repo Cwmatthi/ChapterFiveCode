@@ -1,0 +1,72 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace Chapter_5_1
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void calculateButton_Click(object sender, EventArgs e)
+        {
+            const decimal INTREST_RATE = 0.005m;
+
+            decimal balance;
+            int months;
+            int count = 1;
+            if (decimal.TryParse(startingBalText.Text, out balance))
+            {
+                if(int.TryParse(monthsTextBox.Text, out months))
+                {
+                    try
+                    {
+                        while (count <= months)
+                        {
+                            balance = balance + (INTREST_RATE * balance);
+
+                            count = count + 1;
+                    
+                    
+                        endingBalanceLabel.Text = balance.ToString();
+                       }
+                    }
+                    catch
+                    { }
+                    
+                }
+                else
+                {
+                    MessageBox.Show("Invalid value for months.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Invalid value for starting balance.");
+            }
+        }
+
+        private void clearButton_Click(object sender, EventArgs e)
+        {
+            startingBalText.Text = "";
+            monthsTextBox.Text = "";
+            endingBalanceLabel.Text = "";
+
+            startingBalText.Focus();
+        }
+
+        private void exitButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+    }
+}
