@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Chapter_5_1
+namespace Tutorial_5_2
 {
     public partial class Form1 : Form
     {
@@ -24,9 +24,9 @@ namespace Chapter_5_1
             decimal balance;
             int months;
             int count = 1;
-            if (decimal.TryParse(startingBalText.Text, out balance))
+            if (decimal.TryParse(balanceTextBox.Text, out balance))
             {
-                if(int.TryParse(monthsTextBox.Text, out months))
+                if (int.TryParse(monthsTextBox.Text, out months))
                 {
                     try
                     {
@@ -34,15 +34,17 @@ namespace Chapter_5_1
                         {
                             balance = balance + (INTREST_RATE * balance);
 
+                            detailListBox.Items.Add(" The ending balance " + " for month " + count + " is " +  balance.ToString("c"));
+                                                                                
                             count = count + 1;
 
                         }
-                        endingBalanceLabel.Text = balance.ToString();
-                       
+                        endingBalanceLabel.Text = balance.ToString("c");
+
                     }
                     catch
                     { }
-                    
+
                 }
                 else
                 {
@@ -57,11 +59,10 @@ namespace Chapter_5_1
 
         private void clearButton_Click(object sender, EventArgs e)
         {
-            startingBalText.Text = "";
+            balanceTextBox.Text = "";
             monthsTextBox.Text = "";
             endingBalanceLabel.Text = "";
-
-            startingBalText.Focus();
+            detailListBox.Items.Clear();
         }
 
         private void exitButton_Click(object sender, EventArgs e)
